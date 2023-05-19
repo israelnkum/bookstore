@@ -1,0 +1,21 @@
+[
+    {
+        "roles": [
+            "admin"
+        ],
+        "group": "Book",
+        "permissions": [
+            "add-book",
+            "edit-book",
+            "delete-book",
+            "view-book"
+        ]
+    },
+    {
+        "roles": [
+            "user"
+        ],
+        "group": "Book",
+        "permissions": []
+    }
+]
