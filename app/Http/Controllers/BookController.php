@@ -136,6 +136,11 @@ class BookController extends Controller
 
             $book->save();
 
+            if ($bookRequest->has('file') && $bookRequest->file !== "null") {
+                $saveFile = new SaveFile($book, $bookRequest->file('file'), $this->docPath, $this->allowedFiles);
+                $saveFile->save();
+            }
+
             DB::commit();
 
             return response()->json(new BookResource($book));

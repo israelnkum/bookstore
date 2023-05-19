@@ -34,7 +34,6 @@ function BookDetail({getBook, book}) {
                     <h1 className={'text-3xl'}>₵{book.price}</h1> <br/>
                     <h1 className={'text-xl'}><span className={'font-bold'}>ISBN:&nbsp;</span>{book.isbn}</h1> <br/>
                     <p className={'text-sm'}>{book.description}</p>
-
                     <div>
                         <Button size={'large'} type={'primary'} className={'mt-2'}>
                             Add to Cart

@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {handleDeleteBook, handleGetSingleBook} from "../../actions/book/BookAction";
 import {useOutletContext, useParams} from "react-router";
 import PropTypes from "prop-types";
-import {Descriptions, Divider, Spin} from "antd";
+import {Card, Descriptions, Divider, Spin} from "antd";
 import TlaConfirm from "../../commons/TlaConfirm";
 import {TlaSuccess} from "../../utils/messages";
 import TlaEdit from "../../commons/tla-edit";
@@ -48,7 +48,6 @@ function BookDetail({getBook, book, deleteBook}) {
                     <Descriptions.Item label="price">{book?.price}</Descriptions.Item>
                     <Descriptions.Item label="description">{book?.description}</Descriptions.Item>
                 </Descriptions>
-
                 <Descriptions title={'Book Type'} column={1} size={'small'} bordered>
                     <Descriptions.Item label="Type">{book?.book_type}</Descriptions.Item>
                     {
@@ -68,6 +67,9 @@ function BookDetail({getBook, book, deleteBook}) {
                     }
 
                 </Descriptions>
+                <Card size={'small'} title={'Image'}>
+                    <img src={book.photo} alt={book.title} className={'w-[300px]'}/>
+                </Card>
             </div>
         </Spin>
     )
