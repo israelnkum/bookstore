@@ -5,6 +5,7 @@ namespace App\Helpers;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
+use ReflectionClass;
 
 class SaveFile
 {
@@ -12,7 +13,9 @@ class SaveFile
     protected $file;
     protected string $directory;
     protected array $allowed;
-    public function __construct($model, $file, $directory, $allowed = []){
+
+    public function __construct($model, $file, $directory, $allowed = [])
+    {
         $this->model = $model;
         $this->file = $file;
         $this->directory = $directory;
@@ -26,19 +29,20 @@ class SaveFile
     {
         $extension = $this->file->getClientOriginalExtension();
 
-        if (count($this->allowed) && !in_array(strtolower($extension), $this->allowed, true)){
+        if (count($this->allowed) && !in_array(strtolower($extension), $this->allowed, true)) {
             throw new \RuntimeException('File type not allowed');
         }
 
         $image_name = uniqid('', true) . '.' . $extension;
         $this->file->storeAs($this->directory . '/', $image_name);
-        Log::info('id => '. $this->model->id, [$this->model]);
-        return  $this->model->photo()->updateOrCreate(
+
+        $reflection = new ReflectionClass($this->model);
+        return $this->model->photo()->updateOrCreate(
             [
                 'photoable_id' => $this->model->id,
-                'photoable_type' => get_class($this->model)
+                'photoable_type' => $reflection->getShortName()
             ], [
-                'file_name' => $image_name
-            ]);
+            'file_name' => $image_name
+        ]);
     }
 }

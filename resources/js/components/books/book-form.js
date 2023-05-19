@@ -6,6 +6,7 @@ import {useLocation} from "react-router-dom";
 import {handleAddBook, handleUpdateBook} from "../../actions/book/BookAction";
 import TlaFormWrapper from "../../commons/tla-form-wrapper";
 import TlaSelect from "../../commons/tla/TlaSelect";
+import ChangePicture from "../commons/change-picture";
 
 function BookForm(props) {
     const [selectedFile, setSelectedFile] = useState(null)
@@ -31,47 +32,65 @@ function BookForm(props) {
 
     return (
         <TlaFormWrapper
-            width={520}
+            width={720}
             file={selectedFile}
             initialValues={formValues}
             onSubmit={formValues.id === 0 ? addBook : updateBook}
             formTitle={`${(formValues.id === 0 ? "New" : "Edit")} Book`}>
             <Row gutter={10}>
-                <Col span={18}>
-                    <Form.Item name="title" label="Book Title"
-                               rules={[
-                                   {
-                                       required: true,
-                                       message: 'Title is Required'
-                                   }
-                               ]}>
-                        <Input size={'large'}/>
-                    </Form.Item>
-                </Col>
                 <Col span={6}>
-                    <Form.Item name="isbn" label="ISBN"
-                               rules={[
-                                   {
-                                       required: true,
-                                       message: 'ISBN is Required'
-                                   }
-                               ]}>
-                        <Input size={'large'}/>
-                    </Form.Item>
+                    <ChangePicture hasFile={selectedFile === null} setFile={setSelectedFile}/>
                 </Col>
-                <Col span={12}>
-                    <TlaSelect
-                        name={'author_id'}
-                        label={'Author'}
-                        required optionKey={'name'}
-                        options={authors}/>
-                </Col>
-                <Col span={12}>
-                    <TlaSelect
-                        name={'category_id'}
-                        label={'Category'}
-                        required optionKey={'name'}
-                        options={categories}/>
+                <Col span={18}>
+                    <Row gutter={10}>
+                        <Col span={18}>
+                            <Form.Item name="title" label="Book Title"
+                                       rules={[
+                                           {
+                                               required: true,
+                                               message: 'Title is Required'
+                                           }
+                                       ]}>
+                                <Input size={'large'}/>
+                            </Form.Item>
+                        </Col>
+                        <Col span={6}>
+                            <Form.Item name="isbn" label="ISBN"
+                                       rules={[
+                                           {
+                                               required: true,
+                                               message: 'ISBN is Required'
+                                           }
+                                       ]}>
+                                <Input size={'large'}/>
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <TlaSelect
+                                name={'author_id'}
+                                label={'Author'}
+                                required optionKey={'name'}
+                                options={authors}/>
+                        </Col>
+                        <Col span={12}>
+                            <TlaSelect
+                                name={'category_id'}
+                                label={'Category'}
+                                required optionKey={'name'}
+                                options={categories}/>
+                        </Col>
+                        <Col>
+                            <Form.Item hidden name="id" label="ID"
+                                       rules={[
+                                           {
+                                               required: true,
+                                               message: 'Required'
+                                           }
+                                       ]}>
+                                <Input size={'large'}/>
+                            </Form.Item>
+                        </Col>
+                    </Row>
                 </Col>
                 <Col span={12}>
                     <Form.Item
@@ -162,17 +181,6 @@ function BookForm(props) {
                 <Col span={24}>
                     <Form.Item name="description" label="description">
                         <Input.TextArea/>
-                    </Form.Item>
-                </Col>
-                <Col>
-                    <Form.Item hidden name="id" label="ID"
-                               rules={[
-                                   {
-                                       required: true,
-                                       message: 'Required'
-                                   }
-                               ]}>
-                        <Input size={'large'}/>
                     </Form.Item>
                 </Col>
             </Row>

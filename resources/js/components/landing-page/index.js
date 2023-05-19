@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import {handleGetAllBooks} from "../../actions/book/BookAction";
 import {Link} from "react-router-dom";
 import LandingHeader from "../landing-page/landing-header";
-import BookImage from '../../assets/img/landing-head.jpg'
 import {Button} from "antd";
 
 function LandingPage(props) {
@@ -21,15 +20,15 @@ function LandingPage(props) {
         <div>
             <LandingHeader/>
             <div>
-                <h3 className={'text-center text-4xl py-5'}>Best Seller Books</h3>
-                <div className={'pb-10 flex flex-wrap gap-4 px-5 mx-auto w-[1146px]'}>
+                <h3 className={'text-center text-2xl md:text-4xl py-5'}>Best Seller Books</h3>
+                <div className={'pb-10 flex flex-wrap gap-4 px-5 mx-auto w-full md:w-[1146px]'}>
                     {
                         !loading && data.map((book) => (
                             <div key={book.id} className={'w-[250px] pb-2 border'}>
                                 <Link style={{textDecoration: 'none'}} to={'book/detail'} state={{id: book.id}}>
                                     <div className={'relative'}>
                                         <p className={'absolute right-0 p-2 bg-dark text-white text-sm'}>{book.category}</p>
-                                        <img className={'w-full'} src={BookImage} alt={book.title}/>
+                                        <img className={'w-full'} src={book.photo} alt={book.title}/>
                                         <div className={'px-2'}>
                                             <h3 className={'text-lg'}>{book.title}</h3>
                                             <h3 className={'text-lg font-bold mb-3'}>₵{book.price}</h3>

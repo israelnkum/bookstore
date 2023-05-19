@@ -1,11 +1,10 @@
-import { UploadOutlined } from "@ant-design/icons";
-import { Button, Modal, Upload } from 'antd'
+import {Modal, Upload} from 'antd'
 import ImgCrop from 'antd-img-crop'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 
 export default function ChangePicture (props) {
-    const {hasFile, setFile, isDocument} = props
+    const {hasFile, setFile} = props
     const [preview, setPreview] = useState({
         image: '',
         visible: false,
@@ -17,7 +16,7 @@ export default function ChangePicture (props) {
             setFile(file)
             return true
         },
-        listType: isDocument ? 'text' : 'picture-card',
+        listType: 'picture-card',
         maxCount: 1,
         onRemove: () => {
             setFile(null)
@@ -45,39 +44,27 @@ export default function ChangePicture (props) {
     }
 
     return (
-        <div>
-            {
-                isDocument ?
-                    <Upload {...uploadProps} onPreview={onPreview}>
-                        <Button type={'primary'} icon={<UploadOutlined />}>
-                            {!hasFile  ? 'Change' : 'Select File'}
-                        </Button>
-                    </Upload> :
-                    <>
-                        <ImgCrop rotate>
-                            <Upload {...uploadProps} onPreview={onPreview}>
-                                {!hasFile  ? 'Change' : 'Select'}
-                            </Upload>
-                        </ImgCrop>
-                        <Modal
-                            width={400}
-                            open={preview.visible}
-                            title={preview.title}
-                            footer={null}
-                            onCancel={() => { setPreview({ visible: false }) }}>
-                            <img alt="Profile Picture" style={{ width: '100%' }} src={preview.image} />
-                        </Modal>
-                    </>
-            }
-        </div>
+        <>
+            <Upload {...uploadProps} onPreview={onPreview}>
+                {!hasFile  ? 'Change' : 'Select'}
+            </Upload>
+            <Modal
+                width={400}
+                open={preview.visible}
+                title={preview.title}
+                footer={null}
+                onCancel={() => { setPreview({ visible: false }) }}>
+                <img alt="Profile Picture" style={{ width: '100%' }} src={preview.image} />
+            </Modal>
+        </>
     )
 }
+
 ChangePicture.propTypes = {
     hasFile: false,
-    isDocument: false,
 }
+
 ChangePicture.propTypes = {
     setFile: PropTypes.func,
-    hasFile: PropTypes.bool,
-    isDocument: PropTypes.bool,
+    hasFile: PropTypes.bool
 }

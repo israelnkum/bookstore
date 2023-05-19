@@ -2,9 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\ContactDetail;
+use App\Models\Book;
 use App\Models\Ebook;
-use App\Models\Employee;
 use App\Models\PaperBook;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -37,7 +36,8 @@ class AppServiceProvider extends ServiceProvider
         });
         Relation::morphMap([
             'Ebook' => Ebook::class,
-            'PaperBook' => PaperBook::class
+            'PaperBook' => PaperBook::class,
+            'Book' => Book::class,
         ]);
     }
 }

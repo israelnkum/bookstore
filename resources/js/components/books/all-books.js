@@ -6,6 +6,7 @@ import {useOutletContext} from 'react-router'
 import {handleGetAllBooks} from "../../actions/book/BookAction";
 import TlaTableWrapper from "../../commons/table/tla-table-wrapper";
 import {useNavigate} from "react-router-dom";
+import TlaImage from "../../commons/tla-image";
 
 const {Column} = Table
 
@@ -33,18 +34,21 @@ function AllBooks(props) {
     }
 
     return (
-        <div className={ 'pb-10' }>
+        <div className={'pb-10'}>
             {/*<FilterBooks/>*/}
             <TlaTableWrapper
-                formLoading={ loading }
-                filterObj={ filter }
-                callbackFunction={ getBooks }
-                data={ data } meta={ meta }>
-                <Column className={'cursor-pointer'} onCell={Details} title="title" dataIndex={ 'title' }/>
-                <Column className={'cursor-pointer'} onCell={Details} title="book type" dataIndex={ 'book_type' }/>
-                <Column className={'cursor-pointer'} onCell={Details} title="category" dataIndex={ 'category' }/>
-                <Column className={'cursor-pointer'} onCell={Details} title="author" dataIndex={ 'author' }/>
-                <Column className={'cursor-pointer'} onCell={Details} title="isbn" dataIndex={ 'isbn' }/>
+                formLoading={loading}
+                filterObj={filter}
+                callbackFunction={getBooks}
+                data={data} meta={meta}>
+                <Column className={'cursor-pointer'} title="img" render={({photo}) => (
+                    <TlaImage name={''} size={50} preview src={photo}/>
+                )}/>
+                <Column className={'cursor-pointer'} onCell={Details} title="title" dataIndex={'title'}/>
+                <Column className={'cursor-pointer'} onCell={Details} title="book type" dataIndex={'book_type'}/>
+                <Column className={'cursor-pointer'} onCell={Details} title="category" dataIndex={'category'}/>
+                <Column className={'cursor-pointer'} onCell={Details} title="author" dataIndex={'author'}/>
+                <Column className={'cursor-pointer'} onCell={Details} title="isbn" dataIndex={'isbn'}/>
             </TlaTableWrapper>
         </div>
     )

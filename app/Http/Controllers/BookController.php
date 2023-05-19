@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SaveFile;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Http\Resources\BookResource;
@@ -18,6 +19,10 @@ use ReflectionClass;
 
 class BookController extends Controller
 {
+    protected string $docPath = 'images/books';
+
+    protected array $allowedFiles = ['png', 'jpg', 'jpeg'];
+
 
     /**
      * @return AnonymousResourceCollection
@@ -50,7 +55,7 @@ class BookController extends Controller
      * @param StoreBookRequest $bookRequest
      * @return JsonResponse
      */
-    public function store(StoreBookRequest $bookRequest)
+    public function store(StoreBookRequest $bookRequest): JsonResponse
     {
         try {
             DB::beginTransaction();
@@ -73,6 +78,11 @@ class BookController extends Controller
             $book->bookable_type = $reflection->getShortName();
             $book->bookable_id = $bookType->id;
             $book->save();
+
+            if ($bookRequest->has('file') && $bookRequest->file !== "null") {
+                $saveFile = new SaveFile($book, $bookRequest->file('file'), $this->docPath, $this->allowedFiles);
+                $saveFile->save();
+            }
             DB::commit();
 
             return response()->json(new BookResource($book), 201);

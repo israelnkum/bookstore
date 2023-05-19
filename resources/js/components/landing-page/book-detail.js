@@ -4,7 +4,6 @@ import {handleGetSingleBook} from "../../actions/book/BookAction";
 import PropTypes from "prop-types";
 import {Button, Spin} from "antd";
 import {useLocation} from "react-router";
-import Img from '../../assets/img/landing-head.jpg'
 import LoginRegister from "./login-register";
 
 function BookDetail({getBook, book}) {
@@ -21,19 +20,19 @@ function BookDetail({getBook, book}) {
 
     return (
         <Spin spinning={loading}>
-            <div className={'py-5 pl-[170px] flex justify-between pr-[150px]'}>
+            <div className={'py-5 pl-5 md:pl-[170px] gap-2 flex flex-wrap justify-between md:pr-[150px]'}>
                 <LoginRegister/>
-                <a href="/landing" className={'auth-btn'}>Shop</a>
+                <a href="/landing" className={'auth-btn'}>Continue Shopping</a>
             </div>
-            <div className={'flex justify-center gap-4 flex-wrap'}>
+            <div className={'flex justify-center gap-4 flex-wrap p-3 md:p-0'}>
                 <div className={'w-[500px]'}>
-                    <img src={Img} alt={book.title}/>
+                    <img src={book.photo} alt={book.title}/>
                 </div>
                 <div className={'w-[500px]'}>
                     <p className={'p-2 bg-dark text-white text-sm w-fit'}>{book.category}</p>
                     <h1 className={'text-3xl'}>{book.title}</h1>
-                    <h1 className={'text-3xl'}>₵{book.price}</h1>
-                    <h1 className={'text-2xl'}>₵{book.isbn}</h1>
+                    <h1 className={'text-3xl'}>₵{book.price}</h1> <br/>
+                    <h1 className={'text-xl'}><span className={'font-bold'}>ISBN:&nbsp;</span>{book.isbn}</h1> <br/>
                     <p className={'text-sm'}>{book.description}</p>
 
                     <div>

@@ -28,7 +28,8 @@ class BookResource extends JsonResource
             'book_type' => $this->bookable_type,
             'isbn' => $this->isbn,
             'description' => $this->description,
-            'price' => $this->price
+            'price' => $this->price,
+            'photo' => '/storage/images/books/' . ($this->photo ? $this->photo->file_name : 'default.jpg'),
         ];
     }
 }
